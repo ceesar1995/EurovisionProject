@@ -1,0 +1,33 @@
+<div>
+  <h1>Cities</h1>
+</div>
+<div>
+  <button mat-raised-button color="primary" (click)="runAlgorithm()">
+    Run algorithm (also showed in console)
+  </button>
+  <button mat-raised-button color="primary" (click)="getCitiesList(0,25);this.paginator.pageSize = 25">
+      Get all cities
+  </button>
+</div>
+<div class="wrapper">
+  <div class="spinner-container" *ngIf="!this.loaded">
+    <mat-spinner></mat-spinner>
+  </div>
+  <table *ngIf="this.loaded" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let city"> {{city.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let city"> {{city.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[25, 50, 100]" [length]="info?.totalElements" showFirstLastButtons></mat-paginator>
+</div>
